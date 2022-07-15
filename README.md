@@ -71,7 +71,7 @@ This image below illustrates the overall workflow for STtools.
     <img src="doc/STtools_workflow.png"/>
 </p>
 
-There are 7 steps in total. 
+There are 8 steps in total. 
 Each step takes input from either the raw data or outputs of the
 previous steps. Please see a brief explanation on each step:
 
