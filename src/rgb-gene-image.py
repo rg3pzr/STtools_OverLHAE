@@ -13,10 +13,10 @@ parser.add_argument("-o", "--out", type=str, required=True, help="Output file pr
 parser.add_argument("-t", "--tile", type=str, help="A single tile to draw (in [lane_tile] format)")
 parser.add_argument("-l", "--layout", type=str, help="Layout file of tiles to draw [lane] [tile] [row] [col] format in each line")
 ## color required - --mono or --red, --green, --blue
-parser.add_argument("-r", "--red", type=str, required=False, help="Comma-separate list of genes (colon with weights) for red color")
-parser.add_argument("-g", "--green", type=str, required=False, help="Comma-separate list of genes (colon with weights) for green color")
-parser.add_argument("-b", "--blue", type=str, required=False, help="Comma-separate list of genes (colon with weights) for blue color")
-parser.add_argument("-m", "--mono", type=str, required=False, help="Comma-separate list of genes (colon with weights) for black-and-white color")
+parser.add_argument("-r", "--red", type=str, required=False, help="Filename or Comma-separated list of genes (colon with weights) for red color")
+parser.add_argument("-g", "--green", type=str, required=False, help="Filename or Comma-separated list of genes (colon with weights) for green color")
+parser.add_argument("-b", "--blue", type=str, required=False, help="Filename or Comma-separated list of genes (colon with weights) for blue color")
+parser.add_argument("-m", "--mono", type=str, required=False, help="Filename or Comma-separated list of genes (colon with weights) for black-and-white color")
 ## scaling parameters
 parser.add_argument("-s", "--scale", type=float, default=20.0, help="Scale each color to have the same mean intensity (0 indicates no scaling)")
 #parser.add_argument("--inv-weight", default=False, action='store_true', help="Weight each gene inversely")
@@ -37,21 +37,33 @@ def update_xyrange(xyr, x, y):
     if xyr[1][1] < y:
         xyr[1][1] = y
 
+## parse gene weight information from input argument strings
 def parse_gene_weights(s):
-    ## expected arguments [GENE_1],[GENE_2],...,[GENE_N], or [GENE_1]:[W1],[GENE2]:[W2],... default weight is 1
-    ## Use "_sum" to sum all genes, to count all pixels
-    toks = s.split(',')
-    d = {}
-    for tok in toks:
-        gtoks = tok.split(':')        
-        if ( len(gtoks) == 1 ):
-            d[gtoks[0]] = [1.0, 0]
-        elif ( len(gtoks) == 2 ):
-            d[gtoks[0]] = [float(gtoks[1]), 0]
-        elif ( len(gtoks) == 3 ):
-            d[gtoks[0]] = [float(gtoks[1]), int(gtoks[2])]
-        else:
-            raise ValueError(f"Cannot parse {tok} in {s}")
+    ## expected arguments [GENE_1],[GENE_2],...,[GENE_N], or [GENE_1]:[W1],[GENE2]:[W2],... default weight is 1    
+    ## Use "_all" to sum all genes, to count all pixels    
+    d = {}    
+    if os.path.exists(s): ## if the file exists, use the file as input
+        with gzip.open(s,'rt',encoding='utf-8') if s.endswith('.gz') else open(s,'rt',encoding='utf-8') as fh:
+            for line in fh:
+                gtoks = line.rstrip().split()
+                if ( len(gtoks) == 1 ):
+                    d[gtoks[0]] = [1.0, 1]
+                elif ( len(gtoks) == 2 ):
+                    d[gtoks[0]] = [float(gtoks[1]), 1]
+                elif ( len(gtoks) == 3 ):
+                    d[gtoks[0]] = [float(gtoks[1]), int(gtoks[2])]
+    else:  ## expected arguments [GENE_1],[GENE_2],...,[GENE_N], or [GENE_1]:[W1],[GENE2]:[W2],... default weight is 1
+        toks = s.split(',')
+        for tok in toks:
+            gtoks = tok.split(':')        
+            if ( len(gtoks) == 1 ):
+                d[gtoks[0]] = [1.0, 0]
+            elif ( len(gtoks) == 2 ):
+                d[gtoks[0]] = [float(gtoks[1]), 0]
+            elif ( len(gtoks) == 3 ):
+                d[gtoks[0]] = [float(gtoks[1]), int(gtoks[2])]
+            else:
+                raise ValueError(f"Cannot parse {tok} in {s}")
     return d
 
 ## parse --red, --blue, --green, --raw arguments
