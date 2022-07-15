@@ -1,4 +1,3 @@
-
 # User Manual
 ## Running all steps in STtools
 Before running all steps, it is suggested that the user take a look at the  [running specific step](./readme3.md).
@@ -23,7 +22,7 @@ The user needs to use the option --run-all to run all steps and to provide the f
   *   --maxScale: max color bar value for HDMI discovery plot in step 2, if not given, will use the max number of HDMI reads.
   *   --alpha: Transparency for plotting in step 6. If not given, alpha=0.01
 ### Output: 
-  There are intermediate outputs for each step. Please refer to https://github.com/jyxi7676/STtools/blob/main/scipts/readme3.md for details of the outputs in each step. Among all the inputs, the most usefull files are:
+  There are intermediate outputs for each step. Please refer to https://github.com/seqscope/STtools/blob/main/scipts/readme3.md for details of the outputs in each step. Among all the inputs, the most usefull files are:
   * Digital expression matrix (from step 3)
   * RDS file of Seurat object(from step 4 and 5)
   

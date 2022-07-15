@@ -163,7 +163,7 @@ python3 $STHOME/sttools.py --run-steps C2 --STtools $STHOME --spatial $STDATA/sp
 
 
 ## Step C3
-Step C3 conducts clustering pipeline based on Seurat tutorial. And mapping the celltype to sliding grids using simple grids as query. For more details about Seurat clustering and maping, please refer to https://satijalab.org/seurat/articles/spatial_vignette.html  and https://satijalab.org/seurat/articles/integration_mapping.html.  This step requires the user to annotate the clustering results from simpleSquareGrids.RDS for a better result. Need to make it compatible to take in single cell dataset as query dataset.
+Step C3 conducts clustering pipeline based on Seurat tutorial. And mapping the celltype to sliding grids using simple grids as query. For more details about Seurat clustering and mapping, please refer to https://satijalab.org/seurat/articles/spatial_vignette.html  and https://satijalab.org/seurat/articles/integration_mapping.html.  This step requires the user to annotate the clustering results from simpleSquareGrids.RDS for a better result. Need to make it compatible to take in single cell dataset as query dataset.
 ### *Input*
 * --STtools: Path to STtools package.  **Required**.
 * --simpleGridsPath: Path to SimpleSquareGrids.RDS, **Required**.
@@ -177,7 +177,7 @@ Step C3 conducts clustering pipeline based on Seurat tutorial. And mapping the c
 export STHOME=/path/to/STtools
 ## $STSIMPLE indicates the path to SimpleSquareGrids.RDS
 export STSIMPLE=/path/to/SimpleSquareGrids
-## $STSIMPLE indicates the path to SlidingSquareGrids.RDS
+## $STSLIDING indicates the path to SlidingSquareGrids.RDS
 export STSLIDING=/path/to/SlidingSquareGrids
 ## $STOUT indicates the path to digital expression matrix(DGE)
 export STOUT=/path/to/outdir
@@ -198,9 +198,9 @@ This step visualize gene expression from specified digital expression matrix.
 * --DGEdir:  Path to the digital expression.
 * --predir:  Ouput directory of visualization step.
 * --ncpus:   Number of CPUs Required.
-* --red:     Specify genes colored as red
-* --green:   Specify genes colored as green.
-* --blue:    Specify genes colored as blue.
+* --red:     Specify genes colored as red (file containing gene names in each line is also accepted).
+* --green:   Specify genes colored as green (file containing gene names in each line is also accepted).
+* --blue:    Specify genes colored as blue (file containing gene names in each line is also accepted).
 * --layout:  Layout: either MiSeq or HiSeq.
 * --tmpdir: temporary directory for soring. By default --predir
 * --buffer-size: buffer size for soring. 
@@ -216,7 +216,7 @@ export STDATA=/path/to/spatial
 export STDGE=/path/to/DGE
 ## $STOUT indicates the path to digital expression matrix(DGE)
 export STOUT=/path/to/outdir
-python3 $STHOME/sttools.py --run-steps V1 --STtools $STHOME   --predir $STOUT --spatial $STDATA/spatialcoordinates.txt.gz --DGEdir $STDADA --layout MiSeq --green Alb --red Mup20,Cyp2f2,Mup3,Serpina1e,Hsd17b13,Hpx,Hsd17b6,Pck1,Pigr,Ambp --blue Cyp2e1,Cyp2c29,Cyp1a2,Mup11,Cyp2a5,Cyp2a50,Rgn,Hamp,Pon1,Slco1b2 --tmpdir $STOUT --buffer-size 10G
+python3 $STHOME/sttools.py --run-steps V1 --STtools $STHOME --predir $STOUT --spatial $STDATA/spatialcoordinates.txt.gz --DGEdir $STDADA --layout MiSeq --green Alb --red Mup20,Cyp2f2,Mup3,Serpina1e,Hsd17b13,Hpx,Hsd17b6,Pck1,Pigr,Ambp --blue Cyp2e1,Cyp2c29,Cyp1a2,Mup11,Cyp2a5,Cyp2a50,Rgn,Hamp,Pon1,Slco1b2 --tmpdir $STOUT --buffer-size 10G
 
 
 ```
@@ -224,6 +224,32 @@ python3 $STHOME/sttools.py --run-steps V1 --STtools $STHOME   --predir $STOUT --
 * .png file
 
 
-  
+## Step V2
+Step V2 produces custom visualization plots from RDS file generated from steps C1 to C3 using Seurate. For more details about Seurat clustering and mapping, please refer to https://satijalab.org/seurat/articles/spatial_vignette.html and https://satijalab.org/seurat/articles/integration_mapping.html.
+
+### *Input*
+* --STtools: Path to STtools package.  **Required**.
+* --objpath: Path to the RDS files to use for visualization **Required**.
+* --nFeature_cutoff: Cutoff of nFeatures to use for visualization. If not given, all grids will be visualized.
+* --outdir: Output directory to store the output files.
+
+### *Code*
+```sh
+## $STHOME indicates the path to the directory of STtools repository
+export STHOME=/path/to/STtools
+## $STSIMPLE indicates the path to SimpleSquareGrids.RDS
+export STSIMPLE=/path/to/SimpleSquareGrids
+## $STSLIDING indicates the path to SlidingSquareGrids.RDS
+export STSLIDING=/path/to/SlidingSquareGrids
+## $OUTDIR indicates the path to the output directory to store the output files
+export STOUT=/path/to/outdir
+python3 $STHOME/sttools.py --run-steps V2 --STtools $STHOME --outdir $OUTDIR --objpath $STSLIDING/SlidingSquareGrids.RDS --nFeature_cutoff 10 
+
+
+```
+### *Output*
+*  $OUTDIR/UMAP.png : UMAP plot
+*  $OUTDIR/spatialCluster.png : Spatial cluster plot
+*  $OUTDIR/violin_nFeature_nCount.png : Violin plots of the UMI count, gene count, and mitochondrial percent.
   
  

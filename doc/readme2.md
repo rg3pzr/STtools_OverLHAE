@@ -10,7 +10,7 @@ For example: --run-steps A1,A2,A3 or --run-steps C1,C2. The steps must be separa
  
 
 ### Example 1:
-If the user wants to output the DGE from raw fastq.gz files, then the user can specify --run-steps 1,2,3 as follows:
+If the user wants to output the DGE from raw fastq.gz files, then the user can specify --run-steps A1,A2,A3 as follows:
 ```
 ## $STHOME indicates the path to the directory of STtools repository
 export STHOME=/path/to/STtools

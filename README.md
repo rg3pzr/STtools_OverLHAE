@@ -45,7 +45,7 @@ export GENOMEINDEX=/path/to/STAR/index ## path that contains STAR index
 ##     --sjdbGTFfile $STHOME/STtools_example_data/geneIndex/mm10.gtf --sjdbOverhang 99
 ## export GENOMEINDEX=$STDATA/geneIndex/STARIndex/
 ## 
-## Run STTools - step A1 to V1
+## Run STTools - step A1 to V2
 python3 $STHOME/sttools.py --run-all --STtools $STHOME \
   --first-fq $STDATA/stepA_extractCoordinates/liver-MiSeq-tile2106-sub-R1.fastq.gz \
   --second-fq1 $STDATA/stepA_align/liver_tile2106_sub_R1.fastq.gz \
@@ -58,7 +58,7 @@ python3 $STHOME/sttools.py --run-all --STtools $STHOME \
 STtools package have flexible options for the user to run **all
 steps**, **specificn steps**, or **consecutive steps**. 
 Several examples from various scenarios are given below for illustratrion. 
-* [Running all steps (A1-V1)](./doc/readme1.md)
+* [Running all steps (A1-V2)](./doc/readme1.md)
 * [Running consecutive steps](./doc/readme2.md)
 * [Running specific step](./doc/readme3.md)
 
