@@ -67,7 +67,7 @@ Several examples from various scenarios are given below for illustratrion.
 This image below illustrates the overall workflow for STtools. 
 
 <p align="center">
-    <img src="doc/STtools_workflow.png" width="1550" height="700" />
+    <img src="doc/STtools_workflow.png" width="1786" height="1030" />
 </p>
 
 There are 7 steps in total. 
