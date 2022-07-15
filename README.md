@@ -18,7 +18,7 @@ spatial transcriptomic analysis, such as
 ## Getting Started
 
 We recommend running STTools in a linux operating system (e.g. Ubuntu
-18.04). See [Installtion](#installation) for required software tools
+18.04). See [Installation](#installation) for required software tools
 to run STTools.
 
 ```sh
@@ -38,13 +38,14 @@ export STOUT=$STHOME/out             ## output directory
 export SEQTKPATH=/path/to/seqtk/bin  ## path that contains seqtk binary
 export STARPATH=/path/to/STAR/bin    ## path that contains STAR binary
 export GENOMEINDEX=/path/to/STAR/index ## path that contains STAR index
+
 ## UNCOMMENT if you need to build STAR index yourself for the example data,
 ## mkdir -p $STHOME/STtools_example_data/geneIndex/STARIndex
 ## $STARPATH/STAR --runThreadN 6 --runMode genomeGenerate --genomeDir $STHOME/STtools_example_data/geneIndex/STARIndex \
 ##     --genomeFastaFiles $STHOME/STtools_example_data/geneIndex/mm10.fasta \
 ##     --sjdbGTFfile $STHOME/STtools_example_data/geneIndex/mm10.gtf --sjdbOverhang 99
 ## export GENOMEINDEX=$STDATA/geneIndex/STARIndex/
-## 
+
 ## Run STTools - step A1 to V2
 python3 $STHOME/sttools.py --run-all --STtools $STHOME \
   --first-fq $STDATA/stepA_extractCoordinates/liver-MiSeq-tile2106-sub-R1.fastq.gz \
