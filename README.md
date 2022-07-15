@@ -23,7 +23,7 @@ to run STTools.
 
 ```sh
 ## clone the repository
-git clone https://github.com/jyxi7676/STtools.git
+git clone https://github.com/seqscope/STtools.git
 cd STtools
 ## install required python packages
 python -m pip install -r requirements.txt
@@ -67,7 +67,7 @@ Several examples from various scenarios are given below for illustratrion.
 This image below illustrates the overall workflow for STtools. 
 
 <p align="center">
-    <img src="STtools_workflow.png" width="1550" height="700" />
+    <img src="doc/STtools_workflow.png" width="1550" height="700" />
 </p>
 
 There are 7 steps in total. 
@@ -83,6 +83,7 @@ previous steps. Please see a brief explanation on each step:
 * **Step C2** takes DGE from **Step A3** and output Seurat object with collapsed DGE of square grids from sliding window strategy
 * **Step C3** takes in RDS file from **Step C1** and **Step C2** as input and performs dimension reduction, clustering and conducts refernece mapping with simple square grids as query
 * **Step V1** takes DGE (Velocyto-format) from **Step A3** and generate subcellular plots showing pattern of spliced/unspliced reads
+* **Step V2** takes DGE (Velocyto-format) from **Step C3** and generate UMAP, Spatial clustering, and feature violin plots.
 
 ## Installation
 Linux operatin system is necessary to run STtools package. You also need to install the following software tools and librares/modules before using this package.
@@ -96,7 +97,7 @@ Linux operatin system is necessary to run STtools package. You also need to inst
 
 To install **STtools**, please run:
 ```
-git clone https://github.com/jyxi7676/STtools.git
+git clone https://github.com/seqscope/STtools.git
 ```
 
 
