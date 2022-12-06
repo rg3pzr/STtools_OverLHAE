@@ -1,4 +1,6 @@
-# Spatial Transcriptomic Tools (STtools)
+# Spatial Transcriptomic Tools (STtools) with OverLHAE
+
+The following is the same description as the STtools GitHub, with a modified section near the end before "Installation".
 
 STtools is a software package that is designed to process spatial
 transciriptomics (ST) data from various platforms including
@@ -85,6 +87,8 @@ previous steps. Please see a brief explanation on each step:
 * **Step C3** takes in RDS file from **Step C1** and **Step C2** as input and performs dimension reduction, clustering and conducts refernece mapping with simple square grids as query
 * **Step V1** takes DGE (Velocyto-format) from **Step A3** and generate subcellular plots showing pattern of spliced/unspliced reads
 * **Step V2** takes DGE (Velocyto-format) from **Step C3** and generate UMAP, Spatial clustering, and feature violin plots.
+
+After running these parts of the pipeline, you can input an annotated H&E stain image (annotations should be represented as a .json file, and the image should be a separate PNG, TIFF, or JPG) and the spatial transcriptomic map outputted from previous steps in order to generate an overalayed expression profile onto the inputted H&E stain at the specified annotated locations to get more specific physiological expression information.
 
 ## Installation
 Linux operatin system is necessary to run STtools package. You also need to install the following software tools and librares/modules before using this package.
